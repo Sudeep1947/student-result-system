@@ -5,36 +5,24 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm install'
-                    } else {
-                        bat 'npm install'
-                    }
+                dir('jenkins-result-main') {
+                    bat 'npm install'
                 }
             }
         }
 
         stage('Build') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm run build'
-                    } else {
-                        bat 'npm run build'
-                    }
+                dir('jenkins-result-main') {
+                    bat 'npm run build'
                 }
             }
         }
 
         stage('Start Application') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm start'
-                    } else {
-                        bat 'npm start'
-                    }
+                dir('jenkins-result-main') {
+                    bat 'npm start'
                 }
             }
         }
