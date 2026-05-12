@@ -1,80 +1,42 @@
 pipeline {
     agent any
-    
-    environment {
-        // Detect OS for command execution
-        IS_WINDOWS = isUnix() ? false : true
-    }
 
     stages {
-        stage('Setup') {
+
+        stage('Install Dependencies') {
             steps {
                 script {
-                    if (IS_WINDOWS) {
-                        bat 'python -m pip install --upgrade pip'
-                        bat 'pip install -r requirements.txt'
+                    if (isUnix()) {
+                        sh 'npm install'
                     } else {
-                        sh 'pip3 install -r requirements.txt'
+                        bat 'npm install'
                     }
                 }
             }
         }
 
-        stage('Validation') {
+        stage('Build') {
             steps {
                 script {
-                    if (IS_WINDOWS) {
-                        bat 'python process_results.py'
+                    if (isUnix()) {
+                        sh 'npm run build'
                     } else {
-                        sh 'python3 process_results.py'
+                        bat 'npm run build'
                     }
                 }
             }
         }
 
-        stage('Testing') {
+        stage('Start Application') {
             steps {
                 script {
-                    if (IS_WINDOWS) {
-                        bat 'pytest tests/test_app.py'
+                    if (isUnix()) {
+                        sh 'npm start'
                     } else {
-                        sh 'pytest tests/test_app.py'
+                        bat 'npm start'
                     }
                 }
             }
-        }
-
-        stage('Artifact Generation') {
-            steps {
-                script {
-                    if (IS_WINDOWS) {
-                        bat 'python generate_report.py'
-                    } else {
-                        sh 'python3 generate_report.py'
-                    }
-                }
-                archiveArtifacts artifacts: 'output/*.pdf', fingerprint: true
-            }
-        }
-
-        stage('Deployment') {
-            steps {
-                echo 'Deploying Automated Student Result System...'
-                // In production, this would restart a service or update a container
-            }
-        }
-    }
-
-    post {
-        always {
-            junit testResults: '**/test-results/*.xml', allowEmptyResults: true
-        }
-        success {
-            echo 'Build and Deployment Successful!'
-            // mail to: 'admin@example.com', subject: 'Deployment Success', body: 'The system has been deployed successfully.'
-        }
-        failure {
-            echo 'Build Failed. Please check logs.'
         }
     }
 }
