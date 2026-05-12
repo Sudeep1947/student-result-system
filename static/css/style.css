@@ -1,0 +1,92 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-color: #333;
+    --dark-bg: #1a1a2e;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7f6;
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background: var(--dark-bg);
+    color: #fff;
+}
+
+.hero-banner {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+}
+
+.glass-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s ease;
+    margin-bottom: 24px;
+    height: 100%;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+}
+
+.dark-mode .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.nav-glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.stat-card {
+    text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
+}
+
+.stat-1 { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+.stat-2 { background: linear-gradient(45deg, #a18cd1, #fbc2eb); }
+.stat-3 { background: linear-gradient(45deg, #84fab0, #8fd3f4); }
+.stat-4 { background: linear-gradient(45deg, #cfd9df, #e2ebf0); }
+
+.table-responsive {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.btn-custom {
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+#loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
