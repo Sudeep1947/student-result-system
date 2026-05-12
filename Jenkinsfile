@@ -5,7 +5,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                dir('jenkins-result-main') {
+                dir('student-result-system') {
                     bat 'npm install'
                 }
             }
@@ -13,7 +13,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('jenkins-result-main') {
+                dir('student-result-system') {
                     bat 'npm run build'
                 }
             }
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Start Application') {
             steps {
-                dir('jenkins-result-main') {
+                dir('student-result-system') {
                     bat 'npm start'
                 }
             }
